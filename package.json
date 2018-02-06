@@ -1,0 +1,17 @@
+{
+  "name": "node-my-log",
+  "version": "0.0.1",
+  "description": "Logs your debug/warning/error information in a MySQL database",
+  "main": "index.js",
+  "scripts": {
+    "test": " "
+  },
+  "keywords": [
+    "MySQL"
+  ],
+  "author": "McMuffinDK",
+  "license": "MIT",
+  "dependencies": {
+    "mysql": "^2.15.0"
+  }
+}
