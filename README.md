@@ -39,15 +39,5 @@ const log = new myLog({
 At this moment there are four ways of logging: `.info`, `.debug`, `.warning` and `.error`
 
 ```
-log.error('this is an error description', (err) => {
-	if (err) {
-		throw err;
-	}
-});
-```
-
-The short version
-
-```
-log.info('we just made it shorter!');
+log.error('This an error description');
 ```
