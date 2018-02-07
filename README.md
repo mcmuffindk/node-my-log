@@ -1,6 +1,7 @@
 # node-my-log
-[![npm version](https://badge.fury.io/js/node-my-log.svg)](https://www.npmjs.com/package/node-my-log)
+[![npm version](https://img.shields.io/npm/v/node-my-log.svg)](https://www.npmjs.com/package/node-my-log)
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://www.npmjs.com/package/node-my-log)
+[![npm downloads](https://img.shields.io/npm/dt/node-my-log.svg?style=flat)](https://www.npmjs.com/package/node-my-log)
 
 **node-my-log** is a npm package used to make logging easier with the ability to store the log in MySQL
 
