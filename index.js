@@ -4,7 +4,6 @@ const mysql = require('mysql');
 
 module.exports = myLog;
 
-var on = 0;
 var db;
 var table;
 
@@ -31,13 +30,9 @@ function myLog(details) {
 						db.query("CREATE TABLE `" + details.database + "`.`" + details.table + "` ( `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT , `level` VARCHAR(255) NOT NULL , `msg` VARCHAR(255) NOT NULL , `time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_unicode_ci;", (err) => {
 							if (err) {
 								throw err;
-							} else {
-								on = 1;
-							}
+							} else {}
 						});
-					} else {
-						on = 1;
-					}
+					} else {}
 				}
 			});
 		}
@@ -45,58 +40,42 @@ function myLog(details) {
 }
 
 
-myLog.prototype.info = (msg, callback) => {
+myLog.prototype.info = (msg) => {
 	setTimeout(() => {
-		if (on === 1) {
-			db.query("INSERT INTO `" + table + "` (level, msg) VALUES ('info', '" + msg + "')", (err) => {
-				if (err) {
-					callback(err);
-				}
-			});
-		} else {
-			callback(new Error('my-log was called before it had loaded fully'));
-		}
+		db.query("INSERT INTO `" + table + "` (level, msg) VALUES ('info', '" + msg + "')", (err) => {
+			if (err) {
+				throw err;
+			}
+		});
 	}, 150);
 };
 
-myLog.prototype.debug = (msg, callback) => {
+myLog.prototype.debug = (msg) => {
 	setTimeout(() => {
-		if (on === 1) {
-			db.query("INSERT INTO `" + table + "` (level, msg) VALUES ('debug', '" + msg + "')", (err) => {
-				if (err) {
-					callback(err);
-				}
-			});
-		} else {
-			callback(new Error('my-log was called before it had loaded fully'));
-		}
+		db.query("INSERT INTO `" + table + "` (level, msg) VALUES ('debug', '" + msg + "')", (err) => {
+			if (err) {
+				throw err;
+			}
+		});
 	}, 150);
 };
 
-myLog.prototype.warning = (msg, callback) => {
+myLog.prototype.warning = (msg) => {
 	setTimeout(() => {
-		if (on === 1) {
-			db.query("INSERT INTO `" + table + "` (level, msg) VALUES ('warning', '" + msg + "')", (err) => {
-				if (err) {
-					callback(err);
-				}
-			});
-		} else {
-			callback(new Error('my-log was called before it had loaded fully'));
-		}
+		db.query("INSERT INTO `" + table + "` (level, msg) VALUES ('warning', '" + msg + "')", (err) => {
+			if (err) {
+				throw err;
+			}
+		});
 	}, 150);
 };
 
-myLog.prototype.error = (msg, callback) => {
+myLog.prototype.error = (msg) => {
 	setTimeout(() => {
-		if (on === 1) {
-			db.query("INSERT INTO `" + table + "` (level, msg) VALUES ('error', '" + msg + "')", (err) => {
-				if (err) {
-					callback(err);
-				}
-			});
-		} else {
-			callback(new Error('my-log was called before it had loaded fully'));
-		}
+		db.query("INSERT INTO `" + table + "` (level, msg) VALUES ('error', '" + msg + "')", (err) => {
+			if (err) {
+				throw err;
+			}
+		});
 	}, 150);
 };
