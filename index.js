@@ -22,12 +22,27 @@ function myLog(details) {
 		if (err) {
 			throw err;
 		} else {
-			db.query("SHOW TABLES LIKE '" + details.table + "'", (err, result) => {
+			if (details.update) {
+
+				db.query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" + details.database + "' AND TABLE_NAME = '" + table + "' AND COLUMN_NAME = 'app'", (err, result) => {
+					if (err) {
+						throw err;
+					} else if (result.length < 1) {
+						db.query("ALTER TABLE `" + table + "` ADD COLUMN `app` VARCHAR(255) NOT NULL AFTER `id`", (err) => {
+							if (err) {
+								throw err;
+							}
+						});
+					}
+				});
+			}
+
+			db.query("SHOW TABLES LIKE '" + table + "'", (err, result) => {
 				if (err) {
 					throw err;
 				} else {
 					if (result.length === 0) {
-						db.query("CREATE TABLE `" + details.database + "`.`" + details.table + "` ( `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT , `level` VARCHAR(255) NOT NULL , `msg` VARCHAR(255) NOT NULL , `time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_unicode_ci;", (err) => {
+						db.query("CREATE TABLE `" + details.database + "`.`" + table + "` ( `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT , `app` VARCHAR(255) NOT NULL , `level` VARCHAR(255) NOT NULL , `msg` VARCHAR(255) NOT NULL , `time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_unicode_ci;", (err) => {
 							if (err) {
 								throw err;
 							}
@@ -40,9 +55,12 @@ function myLog(details) {
 }
 
 
-myLog.prototype.info = (msg) => {
+myLog.prototype.info = (msg, app) => {
 	setTimeout(() => {
-		db.query("INSERT INTO `" + table + "` (level, msg) VALUES ('info', '" + msg + "')", (err) => {
+		if (!app) {
+			app = null;
+		}
+		db.query("INSERT INTO `" + table + "` (level, msg, app) VALUES ('info', '" + msg + "', '" + app + "')", (err) => {
 			if (err) {
 				throw err;
 			}
@@ -50,9 +68,12 @@ myLog.prototype.info = (msg) => {
 	}, 150);
 };
 
-myLog.prototype.debug = (msg) => {
+myLog.prototype.debug = (msg, app) => {
 	setTimeout(() => {
-		db.query("INSERT INTO `" + table + "` (level, msg) VALUES ('debug', '" + msg + "')", (err) => {
+		if (!app) {
+			app = null;
+		}
+		db.query("INSERT INTO `" + table + "` (level, msg, app) VALUES ('debug', '" + msg + "', '" + app + "')", (err) => {
 			if (err) {
 				throw err;
 			}
@@ -60,9 +81,12 @@ myLog.prototype.debug = (msg) => {
 	}, 150);
 };
 
-myLog.prototype.warning = (msg) => {
+myLog.prototype.warning = (msg, app) => {
 	setTimeout(() => {
-		db.query("INSERT INTO `" + table + "` (level, msg) VALUES ('warning', '" + msg + "')", (err) => {
+		if (!app) {
+			app = null;
+		}
+		db.query("INSERT INTO `" + table + "` (level, msg, app) VALUES ('warning', '" + msg + ", '" + app + "')", (err) => {
 			if (err) {
 				throw err;
 			}
@@ -70,9 +94,12 @@ myLog.prototype.warning = (msg) => {
 	}, 150);
 };
 
-myLog.prototype.error = (msg) => {
+myLog.prototype.error = (msg, app) => {
 	setTimeout(() => {
-		db.query("INSERT INTO `" + table + "` (level, msg) VALUES ('error', '" + msg + "')", (err) => {
+		if (!app) {
+			app = null;
+		}
+		db.query("INSERT INTO `" + table + "` (level, msg, app) VALUES ('error', '" + msg + "', '" + app + "')", (err) => {
 			if (err) {
 				throw err;
 			}
