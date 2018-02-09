@@ -32,7 +32,7 @@ function myLog(details) {
 								throw err;
 							}
 						});
-					} else {}
+					}
 				}
 			});
 		}
