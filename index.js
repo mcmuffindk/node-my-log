@@ -30,7 +30,7 @@ function myLog(details) {
 						db.query("CREATE TABLE `" + details.database + "`.`" + details.table + "` ( `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT , `level` VARCHAR(255) NOT NULL , `msg` VARCHAR(255) NOT NULL , `time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_unicode_ci;", (err) => {
 							if (err) {
 								throw err;
-							} else {}
+							}
 						});
 					} else {}
 				}
