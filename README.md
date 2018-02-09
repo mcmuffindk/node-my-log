@@ -5,13 +5,15 @@
 
 **node-my-log** is a npm package used to make logging easier with the ability to store the log in MySQL
 
+### Updates
+If you are already using this package you can add `update: true` to the constructor to make the script update the database
 
 ### Installation
 `npm install node-my-log`
 
 
 ### How to use
-**node-my-log** is very easy to use. The only thing you need to do is to make a database for the package.
+**node-my-log** is very easy to use. The only thing you need to do is to make a database for the package
 
 **_Do NOT make the table your self as the package will do it on it's own!_**
 
@@ -41,4 +43,10 @@ At this moment there are four ways of logging: `.info`, `.debug`, `.warning` and
 
 ```
 log.error('This an error description');
+```
+
+It is possible to add the name of the app:
+
+```
+log.info('The name of this app is','node-my-log');
 ```
