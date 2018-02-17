@@ -3,6 +3,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/npm/node-my-log/badge.svg)](https://snyk.io/test/npm/node-my-log?tab=dependencies)
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://www.npmjs.com/package/node-my-log)
 [![npm downloads](https://img.shields.io/npm/dt/node-my-log.svg)](https://www.npmjs.com/package/node-my-log)
+[![DigitalOcean](https://img.shields.io/badge/digital-ocean-blue.svg)](https://m.do.co/c/3e4582b6db4d)
 
 **node-my-log** is a npm package used to make logging easier with the ability to store the log in MySQL
 
