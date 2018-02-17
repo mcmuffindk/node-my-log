@@ -25,7 +25,7 @@ If you are already using this package you can add `update: true` to the construc
 - `database` The database you want the log table to be in
 - `table` The name of the table
 
-```
+```js
 const myLog = require('node-my-log');
 
 const log = new myLog({
@@ -42,12 +42,12 @@ const log = new myLog({
 
 At this moment there are four ways of logging: `.info`, `.debug`, `.warning` and `.error`
 
-```
+```js
 log.error('This an error description');
 ```
 
 It is possible to add the name of the app:
 
-```
+```js
 log.info('The name of this app is','node-my-log');
 ```
