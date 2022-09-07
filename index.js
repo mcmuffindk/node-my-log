@@ -12,8 +12,10 @@ function myLog(details) {
         host: details.host,
         user: details.user,
         password: details.password,
-        database: details.database
+        database: details.database,
+		ssl: details.ssl || null
     });
+
 
     table = details.table;
 
@@ -37,35 +39,37 @@ function myLog(details) {
         }
     });
 }
-// TODO: consider if DB call should be in own function to save bytes
-myLog.prototype.info = (msg, app) => {
-    db.query("INSERT INTO `" + table + "` (level, msg, app) VALUES ('info', '" + msg + "', '" + (app || null) + "')", (err) => {
+
+function insert(lvl, msg, app) {
+	db.query("INSERT INTO `" + table + "` (level, msg, app) VALUES ('" + lvl + "', '" + msg + "', '" + (app || null) + "')", (err) => {
         if (err) {
             throw err;
         }
     });
+}
+
+myLog.prototype.info = (msg, app) => {
+    insert('info', msg, app);
 };
 
 myLog.prototype.debug = (msg, app) => {
-    db.query("INSERT INTO `" + table + "` (level, msg, app) VALUES ('debug', '" + msg + "', '" + (app || null) + "')", (err) => {
-        if (err) {
-            throw err;
-        }
-    });
+    insert('debug', msg, app);
 };
 
 myLog.prototype.warning = (msg, app) => {
-    db.query("INSERT INTO `" + table + "` (level, msg, app) VALUES ('warning', '" + msg + "', '" + (app || null) + "')", (err) => {
-        if (err) {
-            throw err;
-        }
-    });
+    insert('warning', msg, app);
 };
 
 myLog.prototype.error = (msg, app) => {
-    db.query("INSERT INTO `" + table + "` (level, msg, app) VALUES ('error', '" + msg + "', '" + (app || null) + "')", (err) => {
+    insert('error', msg, app);
+};
+
+myLog.prototype.get = (e, callback) => {
+	console.log("SELECT * FROM `" + table + "`" + (e.app ? ' WHERE app = \'' + e.app + '\'' : '') + " ORDER BY `time` DESC" + (e.pagination ? ' LIMIT ' + e.pagination : '') + ";");
+	db.query("SELECT * FROM `" + table + "`" + (e.app ? ' WHERE app = \'' + e.app + '\'' : '') + " ORDER BY `time` DESC" + (e.pagination ? ' LIMIT ' + e.pagination : '') + ";", (err, res) => {
         if (err) {
             throw err;
         }
+		return callback(res);
     });
-};
+}
