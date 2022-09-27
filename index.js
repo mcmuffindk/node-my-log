@@ -34,7 +34,7 @@ function createTable() {
 }
 
 function insert(lvl, msg, app) {
-    db.query("INSERT INTO `" + table + "` (level, msg, app) VALUES ('" + lvl + "', '" + msg + "', " + (app ? '\'app\'' : null) + ")", (err) => {
+    db.query("INSERT INTO `" + table + "` (level, msg, app) VALUES ('" + lvl + "', '" + msg + "', " + (app ? "'" + app + "'" : null) + ")", (err) => {
         if (err) {
             if (err.code == 'ER_NO_SUCH_TABLE') {
                 createTable();
